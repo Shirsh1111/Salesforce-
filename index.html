@@ -56,8 +56,7 @@
       <!-- Salesforce Hidden Metadata Fields -->
       <input type="hidden" name="captcha_settings" value='{"keyname":"Webtolead1","fallback":"true","orgId":"00Df600000V9GZx","ts":""}'>
       <input type="hidden" name="oid" value="00Df600000V9GZx">
-      <!-- Replace retURL with your actual live thank you page URL -->
-      <input type="hidden" name="retURL" value="https://yourdomain.org/thank-you">
+      <input type="hidden" name="retURL" value="https://shirsh1111.github.io/Salesforce-/">
       <input type="hidden" id="lead_source" name="lead_source" value="Web">
 
       <!-- ================= STEP 1: Contact & Entity Info ================= -->
@@ -98,23 +97,24 @@
         </div>
 
         <div>
+          <label for="00Nf600000xJFz3" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Applying As</label>
+          <select id="00Nf600000xJFz3" name="00Nf600000xJFz3" onchange="toggleEntityFields()" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <option value="">-- Select --</option>
+            <option value="Individual">Individual</option>
+            <option value="Entity">Entity</option>
+          </select>
+        </div>
+
+        <!-- Conditional Field: Cause Advisor Address (Individual Only) -->
+        <div id="cause-advisor-container" class="hidden">
           <label for="00Nf600000xJUwT" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Cause Advisor Address</label>
           <input id="00Nf600000xJUwT" name="00Nf600000xJUwT" type="text" maxlength="50" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label for="00Nf600000xJFz3" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Applying As</label>
-            <select id="00Nf600000xJFz3" name="00Nf600000xJFz3" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-              <option value="">-- Select --</option>
-              <option value="Individual">Individual</option>
-              <option value="Entity">Entity</option>
-            </select>
-          </div>
-          <div>
-            <label for="00Nf600000xJNAD" class="block text-xs font-semibold text-slate-700 uppercase mb-1">EIN (if Entity)</label>
-            <input id="00Nf600000xJNAD" name="00Nf600000xJNAD" type="text" maxlength="9" placeholder="123456789" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-          </div>
+        <!-- Conditional Field: EIN (Entity Only) -->
+        <div id="ein-container" class="hidden">
+          <label for="00Nf600000xJNAD" class="block text-xs font-semibold text-slate-700 uppercase mb-1">EIN</label>
+          <input id="00Nf600000xJNAD" name="00Nf600000xJNAD" type="text" maxlength="9" placeholder="123456789" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
         </div>
 
         <div class="flex justify-end pt-4">
@@ -171,12 +171,12 @@
 
       <!-- ================= STEP 3: Financials & Submission ================= -->
       <div id="step-3" class="step-content space-y-4">
-        <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Step 3: Financial Projections & Compliance</h2>
+        <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Step 3: Financial Projections & Budget Breakdown</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label for="00Nf600000xJppd" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Existing Funds?</label>
-            <select id="00Nf600000xJppd" name="00Nf600000xJppd" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <label for="00Nf600000xJppd" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Existing funds?</label>
+            <select id="00Nf600000xJppd" name="00Nf600000xJppd" onchange="toggleFundsFields()" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
               <option value="">-- None --</option>
               <option value="Yes">Yes</option>
               <option value="No">No</option>
@@ -192,18 +192,20 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- Conditional Field: Transfer Amount (Appears when Existing Funds = Yes) -->
+        <div id="transfer-amount-container" class="hidden">
+          <label for="00Nf600000xJl9J" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Transfer Amount ($)</label>
+          <input id="00Nf600000xJl9J" name="00Nf600000xJl9J" type="number" step="0.01" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label for="00Nf600000xJl9J" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Transfer Amount ($)</label>
-            <input id="00Nf600000xJl9J" name="00Nf600000xJl9J" type="text" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <label for="00Nf600000xHnQc" class="block text-xs font-semibold text-slate-700 uppercase mb-1">First Year Revenue Projection ($)</label>
+            <input id="00Nf600000xHnQc" name="00Nf600000xHnQc" type="number" step="0.01" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
           </div>
           <div>
-            <label for="00Nf600000xHnQc" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Year 1 Revenue Projection ($)</label>
-            <input id="00Nf600000xHnQc" name="00Nf600000xHnQc" type="text" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-          </div>
-          <div>
-            <label for="00Nf600000xHvyg" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Year 2 Revenue Projection ($)</label>
-            <input id="00Nf600000xHvyg" name="00Nf600000xHvyg" type="text" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <label for="00Nf600000xHvyg" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Second Year Revenue Projection ($)</label>
+            <input id="00Nf600000xHvyg" name="00Nf600000xHvyg" type="number" step="0.01" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
           </div>
         </div>
 
@@ -217,7 +219,7 @@
             </select>
           </div>
           <div>
-            <label for="00Nf600000xHxg1" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fundraising Channels (Multi-select)</label>
+            <label for="00Nf600000xHxg1" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Are you fundraising?</label>
             <select id="00Nf600000xHxg1" name="00Nf600000xHxg1" multiple class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-xs h-24">
               <option value="Individual Donations">Individual Donations</option>
               <option value="Corporate Donations">Corporate Donations</option>
@@ -231,10 +233,63 @@
           </div>
         </div>
 
-        <div>
-          <label for="00Nf600000xHxeP" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Budget Template / Breakdown</label>
-          <textarea id="00Nf600000xHxeP" name="00Nf600000xHxeP" rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+        <!-- Dynamic Budget Template Table -->
+        <div class="border border-slate-200 rounded-lg p-4 bg-slate-50 space-y-3">
+          <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider">Budget Template Breakdown</label>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-700">
+              <thead class="text-[11px] font-bold uppercase bg-slate-200 text-slate-700">
+                <tr>
+                  <th class="px-3 py-2 rounded-l">Category</th>
+                  <th class="px-3 py-2 rounded-r text-right">Amount (USD)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="px-3 py-1.5 font-medium">Programmatic Supplies</td>
+                  <td class="px-3 py-1.5"><input type="number" step="0.01" class="budget-input w-full text-right px-2 py-1 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none" data-category="Programmatic Supplies" placeholder="0.00" oninput="calculateBudgetTotal()"></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-1.5 font-medium">Contractor Payments</td>
+                  <td class="px-3 py-1.5"><input type="number" step="0.01" class="budget-input w-full text-right px-2 py-1 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none" data-category="Contractor Payments" placeholder="0.00" oninput="calculateBudgetTotal()"></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-1.5 font-medium">Vendor Payment</td>
+                  <td class="px-3 py-1.5"><input type="number" step="0.01" class="budget-input w-full text-right px-2 py-1 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none" data-category="Vendor Payment" placeholder="0.00" oninput="calculateBudgetTotal()"></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-1.5 font-medium">Scholarships</td>
+                  <td class="px-3 py-1.5"><input type="number" step="0.01" class="budget-input w-full text-right px-2 py-1 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none" data-category="Scholarships" placeholder="0.00" oninput="calculateBudgetTotal()"></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-1.5 font-medium">Travel</td>
+                  <td class="px-3 py-1.5"><input type="number" step="0.01" class="budget-input w-full text-right px-2 py-1 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none" data-category="Travel" placeholder="0.00" oninput="calculateBudgetTotal()"></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-1.5 font-medium">Marketing</td>
+                  <td class="px-3 py-1.5"><input type="number" step="0.01" class="budget-input w-full text-right px-2 py-1 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none" data-category="Marketing" placeholder="0.00" oninput="calculateBudgetTotal()"></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-1.5 font-medium">Administrative Costs</td>
+                  <td class="px-3 py-1.5"><input type="number" step="0.01" class="budget-input w-full text-right px-2 py-1 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none" data-category="Administrative Costs" placeholder="0.00" oninput="calculateBudgetTotal()"></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-1.5 font-medium">Other</td>
+                  <td class="px-3 py-1.5"><input type="number" step="0.01" class="budget-input w-full text-right px-2 py-1 border border-slate-300 rounded focus:ring-1 focus:ring-indigo-500 focus:outline-none" data-category="Other" placeholder="0.00" oninput="calculateBudgetTotal()"></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr class="font-bold border-t-2 border-slate-300 text-slate-900">
+                  <td class="px-3 py-2 text-right uppercase">Total:</td>
+                  <td class="px-3 py-2 text-right text-indigo-700">$<span id="budget-total-display">0.00</span></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
+
+        <!-- Hidden Salesforce Budget Textarea Field -->
+        <textarea id="00Nf600000xHxeP" name="00Nf600000xHxeP" class="hidden"></textarea>
 
         <div>
           <label for="00Nf600000xJok2" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Additional Comments</label>
@@ -255,10 +310,65 @@
     </form>
   </div>
 
-  <!-- Wizard Navigation Script -->
+  <!-- Interactive Form Logic Script -->
   <script>
+    // Toggle Cause Advisor Address vs EIN based on Entity Selection
+    function toggleEntityFields() {
+      const entitySelect = document.getElementById('00Nf600000xJFz3').value;
+      const causeAdvisorContainer = document.getElementById('cause-advisor-container');
+      const einContainer = document.getElementById('ein-container');
+
+      if (entitySelect === 'Individual') {
+        causeAdvisorContainer.classList.remove('hidden');
+        einContainer.classList.add('hidden');
+        document.getElementById('00Nf600000xJNAD').value = '';
+      } else if (entitySelect === 'Entity') {
+        einContainer.classList.remove('hidden');
+        causeAdvisorContainer.classList.add('hidden');
+        document.getElementById('00Nf600000xJUwT').value = '';
+      } else {
+        causeAdvisorContainer.classList.add('hidden');
+        einContainer.classList.add('hidden');
+      }
+    }
+
+    // Toggle Transfer Amount based on Existing Funds
+    function toggleFundsFields() {
+      const fundsSelect = document.getElementById('00Nf600000xJppd').value;
+      const transferContainer = document.getElementById('transfer-amount-container');
+
+      if (fundsSelect === 'Yes') {
+        transferContainer.classList.remove('hidden');
+      } else {
+        transferContainer.classList.add('hidden');
+        document.getElementById('00Nf600000xJl9J').value = '';
+      }
+    }
+
+    // Calculate Budget Breakdown Total and update Hidden Salesforce Textarea
+    function calculateBudgetTotal() {
+      const inputs = document.querySelectorAll('.budget-input');
+      let total = 0;
+      let summaryText = "BUDGET TEMPLATE BREAKDOWN:\n";
+
+      inputs.forEach(input => {
+        const cat = input.getAttribute('data-category');
+        const val = parseFloat(input.value) || 0;
+        total += val;
+        summaryText += `${cat}: $${val.toFixed(2)}\n`;
+      });
+
+      summaryText += `-------------------\nTOTAL: $${total.toFixed(2)}`;
+
+      // Display Total on Screen
+      document.getElementById('budget-total-display').textContent = total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      
+      // Store formatted text in hidden Salesforce text area field
+      document.getElementById('00Nf600000xHxeP').value = summaryText;
+    }
+
+    // Multi-step Wizard Navigation
     function nextStep(stepNumber) {
-      // Validate step 1 required fields before moving forward
       if (stepNumber === 2) {
         const firstName = document.getElementById('first_name').value.trim();
         const lastName = document.getElementById('last_name').value.trim();
@@ -269,13 +379,9 @@
         }
       }
 
-      // Hide all steps
       document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
-      
-      // Show requested step
       document.getElementById('step-' + stepNumber).classList.add('active');
 
-      // Update progress bar & label colors
       const progressBar = document.getElementById('progress-bar');
       const label1 = document.getElementById('step-label-1');
       const label2 = document.getElementById('step-label-2');
