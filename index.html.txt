@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Application | Cause & Impact</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google reCAPTCHA v2 -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <style>
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+  </style>
+
+  <script>
+    function timestamp() { 
+      var response = document.getElementById("g-recaptcha-response"); 
+      if (response == null || response.value.trim() == "") {
+        var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);
+        elems["ts"] = JSON.stringify(new Date().getTime());
+        document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); 
+      } 
+    } 
+    setInterval(timestamp, 500); 
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-10 px-4 sm:px-6">
+
+  <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+    
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-6 sm:p-8 text-center border-b border-slate-800">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Cause & Impact Project Application</h1>
+      <p class="text-slate-400 text-sm mt-2">Submit your project details to initiate the fiscal sponsorship onboarding process.</p>
+    </div>
+
+    <!-- Step Progress Bar -->
+    <div class="bg-slate-100 px-6 py-4 border-b border-slate-200">
+      <div class="flex justify-between items-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
+        <span id="step-label-1" class="text-indigo-600 font-bold">1. Contact & Org</span>
+        <span id="step-label-2">2. Project & Vision</span>
+        <span id="step-label-3">3. Financials & Submit</span>
+      </div>
+      <div class="w-full bg-slate-200 h-2 rounded-full mt-2 overflow-hidden">
+        <div id="progress-bar" class="bg-indigo-600 h-full w-1/3 transition-all duration-300"></div>
+      </div>
+    </div>
+
+    <!-- Web-to-Lead Form -->
+    <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Df600000V9GZx" method="POST" id="application-form" class="p-6 sm:p-8 space-y-6">
+
+      <!-- Salesforce Hidden Metadata Fields -->
+      <input type="hidden" name="captcha_settings" value='{"keyname":"Webtolead1","fallback":"true","orgId":"00Df600000V9GZx","ts":""}'>
+      <input type="hidden" name="oid" value="00Df600000V9GZx">
+      <!-- Replace retURL with your actual live thank you page URL -->
+      <input type="hidden" name="retURL" value="https://yourdomain.org/thank-you">
+      <input type="hidden" id="lead_source" name="lead_source" value="Web">
+
+      <!-- ================= STEP 1: Contact & Entity Info ================= -->
+      <div id="step-1" class="step-content active space-y-4">
+        <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Step 1: Contact & Entity Details</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="first_name" class="block text-xs font-semibold text-slate-700 uppercase mb-1">First Name *</label>
+            <input id="first_name" name="first_name" type="text" required maxlength="40" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="last_name" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Last Name *</label>
+            <input id="last_name" name="last_name" type="text" required maxlength="80" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="email" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Email Address *</label>
+            <input id="email" name="email" type="email" required maxlength="80" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="00Nf600000xHxUj" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Mobile Phone</label>
+            <input id="00Nf600000xHxUj" name="00Nf600000xHxUj" type="text" maxlength="40" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="city" class="block text-xs font-semibold text-slate-700 uppercase mb-1">City</label>
+            <input id="city" name="city" type="text" maxlength="40" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="state" class="block text-xs font-semibold text-slate-700 uppercase mb-1">State / Province</label>
+            <input id="state" name="state" type="text" maxlength="20" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label for="00Nf600000xJUwT" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Cause Advisor Address</label>
+          <input id="00Nf600000xJUwT" name="00Nf600000xJUwT" type="text" maxlength="50" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="00Nf600000xJFz3" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Applying As</label>
+            <select id="00Nf600000xJFz3" name="00Nf600000xJFz3" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+              <option value="">-- Select --</option>
+              <option value="Individual">Individual</option>
+              <option value="Entity">Entity</option>
+            </select>
+          </div>
+          <div>
+            <label for="00Nf600000xJNAD" class="block text-xs font-semibold text-slate-700 uppercase mb-1">EIN (if Entity)</label>
+            <input id="00Nf600000xJNAD" name="00Nf600000xJNAD" type="text" maxlength="9" placeholder="123456789" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4">
+          <button type="button" onclick="nextStep(2)" class="px-6 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition">Next: Project Details &rarr;</button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 2: Project Vision & Social Links ================= -->
+      <div id="step-2" class="step-content space-y-4">
+        <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Step 2: Project & Mission Overview</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="00Nf600000xHxWL" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Cause Name *</label>
+            <input id="00Nf600000xHxWL" name="00Nf600000xHxWL" type="text" required maxlength="12" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="00Nf600000xHxZZ" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Cause URL</label>
+            <input id="00Nf600000xHxZZ" name="00Nf600000xHxZZ" type="url" placeholder="https://..." maxlength="255" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label for="00Nf600000xHxbB" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Mission Statement</label>
+          <textarea id="00Nf600000xHxbB" name="00Nf600000xHxbB" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+        </div>
+
+        <div>
+          <label for="00Nf600000xHxcn" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Vision, Cause & Goals</label>
+          <textarea id="00Nf600000xHxcn" name="00Nf600000xHxcn" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div>
+            <label for="00Nf600000xJtoP" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Facebook URL</label>
+            <input id="00Nf600000xJtoP" name="00Nf600000xJtoP" type="text" maxlength="255" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="00Nf600000xI5H3" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Instagram URL</label>
+            <input id="00Nf600000xI5H3" name="00Nf600000xI5H3" type="text" maxlength="255" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="00Nf600000xJqtl" class="block text-xs font-semibold text-slate-700 uppercase mb-1">LinkedIn URL</label>
+            <input id="00Nf600000xJqtl" name="00Nf600000xJqtl" type="text" maxlength="255" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button type="button" onclick="nextStep(1)" class="px-6 py-2.5 bg-slate-200 text-slate-700 font-medium rounded-lg hover:bg-slate-300 transition">&larr; Back</button>
+          <button type="button" onclick="nextStep(3)" class="px-6 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition">Next: Financials &rarr;</button>
+        </div>
+      </div>
+
+      <!-- ================= STEP 3: Financials & Submission ================= -->
+      <div id="step-3" class="step-content space-y-4">
+        <h2 class="text-lg font-bold text-slate-900 border-b pb-2">Step 3: Financial Projections & Compliance</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="00Nf600000xJppd" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Existing Funds?</label>
+            <select id="00Nf600000xJppd" name="00Nf600000xJppd" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+              <option value="">-- None --</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div>
+            <label for="00Nf600000xHLEA" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Previously Fiscally Sponsored?</label>
+            <select id="00Nf600000xHLEA" name="00Nf600000xHLEA" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+              <option value="">-- None --</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label for="00Nf600000xJl9J" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Transfer Amount ($)</label>
+            <input id="00Nf600000xJl9J" name="00Nf600000xJl9J" type="text" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="00Nf600000xHnQc" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Year 1 Revenue Projection ($)</label>
+            <input id="00Nf600000xHnQc" name="00Nf600000xHnQc" type="text" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="00Nf600000xHvyg" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Year 2 Revenue Projection ($)</label>
+            <input id="00Nf600000xHvyg" name="00Nf600000xHvyg" type="text" placeholder="0.00" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="00Nf600000xJ4nV" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Government Grant Fundraising?</label>
+            <select id="00Nf600000xJ4nV" name="00Nf600000xJ4nV" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+              <option value="">-- None --</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div>
+            <label for="00Nf600000xHxg1" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fundraising Channels (Multi-select)</label>
+            <select id="00Nf600000xHxg1" name="00Nf600000xHxg1" multiple class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-xs h-24">
+              <option value="Individual Donations">Individual Donations</option>
+              <option value="Corporate Donations">Corporate Donations</option>
+              <option value="Personal Contributions">Personal Contributions</option>
+              <option value="Private Grants">Private Grants</option>
+              <option value="Government Grants">Government Grants</option>
+              <option value="Online Fundraising">Online Fundraising</option>
+              <option value="In-Person Fundraising Events">In-Person Fundraising Events</option>
+            </select>
+            <p class="text-[10px] text-slate-400 mt-1">Hold Ctrl (Cmd on Mac) to select multiple channels.</p>
+          </div>
+        </div>
+
+        <div>
+          <label for="00Nf600000xHxeP" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Budget Template / Breakdown</label>
+          <textarea id="00Nf600000xHxeP" name="00Nf600000xHxeP" rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+        </div>
+
+        <div>
+          <label for="00Nf600000xJok2" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Additional Comments</label>
+          <textarea id="00Nf600000xJok2" name="00Nf600000xJok2" rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+        </div>
+
+        <!-- reCAPTCHA & Submit -->
+        <div class="pt-4 space-y-4 border-t">
+          <div class="g-recaptcha" data-sitekey="6LdG_-YtAAAAAJmjA6li9nyA53AsySING9PhoaP3"></div>
+          
+          <div class="flex justify-between items-center">
+            <button type="button" onclick="nextStep(2)" class="px-6 py-2.5 bg-slate-200 text-slate-700 font-medium rounded-lg hover:bg-slate-300 transition">&larr; Back</button>
+            <button type="submit" name="submit" class="px-8 py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 shadow-lg transition">Submit Application</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Wizard Navigation Script -->
+  <script>
+    function nextStep(stepNumber) {
+      // Validate step 1 required fields before moving forward
+      if (stepNumber === 2) {
+        const firstName = document.getElementById('first_name').value.trim();
+        const lastName = document.getElementById('last_name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        if (!firstName || !lastName || !email) {
+          alert('Please fill in First Name, Last Name, and Email Address before proceeding.');
+          return;
+        }
+      }
+
+      // Hide all steps
+      document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+      
+      // Show requested step
+      document.getElementById('step-' + stepNumber).classList.add('active');
+
+      // Update progress bar & label colors
+      const progressBar = document.getElementById('progress-bar');
+      const label1 = document.getElementById('step-label-1');
+      const label2 = document.getElementById('step-label-2');
+      const label3 = document.getElementById('step-label-3');
+
+      if (stepNumber === 1) {
+        progressBar.style.width = '33%';
+        label1.className = 'text-indigo-600 font-bold';
+        label2.className = '';
+        label3.className = '';
+      } else if (stepNumber === 2) {
+        progressBar.style.width = '66%';
+        label1.className = 'text-slate-400';
+        label2.className = 'text-indigo-600 font-bold';
+        label3.className = '';
+      } else if (stepNumber === 3) {
+        progressBar.style.width = '100%';
+        label1.className = 'text-slate-400';
+        label2.className = 'text-slate-400';
+        label3.className = 'text-indigo-600 font-bold';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
